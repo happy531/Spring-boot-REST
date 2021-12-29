@@ -2,12 +2,18 @@ package com.example.backend.user_profile;
 
 import com.example.backend.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @JsonIgnoreProperties(value = {"user"})
 @Entity
 @Table(name = "user_profiles")
+@Getter
+@Setter
+@NoArgsConstructor
 public class UserProfile {
     @Id
     @Column(name = "user_id")
@@ -28,41 +34,5 @@ public class UserProfile {
     public UserProfile(Gender gender, int age) {
         this.gender = gender;
         this.age = age;
-    }
-
-    public UserProfile() {
-
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Gender getGender() {
-        return gender;
-    }
-
-    public void setGender(Gender gender) {
-        this.gender = gender;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }
