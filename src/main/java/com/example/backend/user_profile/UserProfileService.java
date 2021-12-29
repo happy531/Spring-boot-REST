@@ -3,6 +3,8 @@ package com.example.backend.user_profile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserProfileService {
 
@@ -13,7 +15,12 @@ public class UserProfileService {
         this.userProfileRepository = userProfileRepository;
     }
 
-    public UserProfile saveUserProfile(UserProfile userProfile) {
-        return userProfileRepository.save(userProfile);
+    public Optional<UserProfile> getProfile(long id) {
+        return userProfileRepository.findById(id);
     }
+
+    public void saveUserProfile(UserProfile userProfile) {
+        userProfileRepository.save(userProfile);
+    }
+
 }

@@ -1,7 +1,10 @@
 package com.example.backend.user;
 
+import com.example.backend.user_profile.UserProfile;
+
 import javax.persistence.*;
 
+//@JsonIgnoreProperties(value = {"userProfile"})
 @Entity
 @Table(name = "users",
         uniqueConstraints = {
@@ -9,18 +12,8 @@ import javax.persistence.*;
         })
 public class User {
     @Id
-    @SequenceGenerator(
-            name = "user_sequence",
-            sequenceName = "user_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "user_sequence"
-    )
-    @Column(
-            name = "id"
-    )
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Long id;
 
     @Column(
@@ -37,9 +30,9 @@ public class User {
     )
     private String email;
 
-//    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    @JoinColumn(name = "up_id")
-//    private UserProfile userProfile;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private UserProfile userProfile;
 
     public User(String name, String lastName) {
         this.nick = name;
@@ -74,11 +67,11 @@ public class User {
         this.email = email;
     }
 
-//    public UserProfile getUserProfile() {
-//        return userProfile;
-//    }
-//
-//    public void setUserProfile(UserProfile userProfile) {
-//        this.userProfile = userProfile;
-//    }
+    public UserProfile getUserProfile() {
+        return userProfile;
+    }
+
+    public void setUserProfile(UserProfile userProfile) {
+        this.userProfile = userProfile;
+    }
 }

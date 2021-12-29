@@ -1,23 +1,16 @@
 package com.example.backend.user_profile;
 
+import com.example.backend.user.User;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
+@JsonIgnoreProperties(value = {"user"})
 @Entity
 @Table(name = "user_profiles")
 public class UserProfile {
     @Id
-    @SequenceGenerator(
-            name = "user_profile_sequence",
-            sequenceName = "user_profile_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "user_profile_sequence"
-    )
-    @Column(
-            name = "up_id"
-    )
+    @Column(name = "user_id")
     private Long id;
 
     @Enumerated(EnumType.STRING)
@@ -27,8 +20,10 @@ public class UserProfile {
     @Column(name = "age")
     private int age;
 
-//    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "userProfile")
-//    private User user;
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public UserProfile(Gender gender, int age) {
         this.gender = gender;
@@ -63,11 +58,11 @@ public class UserProfile {
         this.age = age;
     }
 
-//    public User getUser() {
-//        return user;
-//    }
-//
-//    public void setUser(User user) {
-//        this.user = user;
-//    }
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

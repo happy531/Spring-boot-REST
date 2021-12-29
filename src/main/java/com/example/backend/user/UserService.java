@@ -27,7 +27,7 @@ public class UserService {
     }
 
     public void registerUser(@NotNull User user) {
-        Optional<User> userByEmail = userRepository.findUserByEmail(user.getEmail());
+        Optional<User> userByEmail = Optional.ofNullable(userRepository.findUserByEmail(user.getEmail()));
         if (userByEmail.isPresent()) {
             throw new IllegalStateException("email is already used");
         }
