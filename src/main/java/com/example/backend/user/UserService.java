@@ -4,6 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +22,10 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public Optional<User> getUser(long id) {
+        return userRepository.findById(id);
+    }
+
     public void registerUser(@NotNull User user) {
         Optional<User> userByEmail = userRepository.findUserByEmail(user.getEmail());
         if (userByEmail.isPresent()) {
@@ -28,4 +33,13 @@ public class UserService {
         }
         userRepository.save(user);
     }
+
+    public void deleteUser(long id) {
+        if (!userRepository.existsById(id)) {
+            throw new IllegalStateException("user " + id + " does not exists");
+        }
+        userRepository.deleteAllById(Collections.singleton(id));
+    }
+
+
 }

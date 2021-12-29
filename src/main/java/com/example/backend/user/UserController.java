@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api/v1/user")
@@ -21,8 +22,19 @@ public class UserController {
         return userService.getUsers();
     }
 
+    @GetMapping(path = "{userID}")
+    public Optional<User> getUser(@PathVariable("userID") long id) {
+        return userService.getUser(id);
+    }
+
     @PostMapping
     public void registerNewUser(@RequestBody User user) {
         userService.registerUser(user);
     }
+
+    @DeleteMapping(path = "{userID}")
+    public void deleteUser(@PathVariable("userID") long id) {
+        userService.deleteUser(id);
+    }
+
 }
