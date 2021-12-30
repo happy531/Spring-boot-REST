@@ -27,9 +27,21 @@ public class UserProfileController {
 
     @PostMapping(path = "{userID}")
     public void saveUserProfile(@RequestBody UserProfile userProfile, @PathVariable long userID) {
-        User user = userService.getUser(userID).get();
+        Optional<User> userOptional = userService.getUser(userID);
+        if (userOptional.isEmpty()) {
+            throw new IllegalStateException("This profile does not exists");
+        }
+        User user = userOptional.get();
         user.setUserProfile(null);
         userProfile.setUser(user);
         userProfileService.saveUserProfile(userProfile);
+    }
+
+    @PutMapping(path = "{userID}")
+    public void updateUserProfile(
+            @PathVariable("userID") Long userID,
+            @RequestBody UserProfile updatedUserProfile
+    ) {
+        userProfileService.updateUserProfile(userID, updatedUserProfile);
     }
 }
