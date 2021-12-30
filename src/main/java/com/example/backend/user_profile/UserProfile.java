@@ -8,7 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-@JsonIgnoreProperties(value = {"user"})
+@JsonIgnoreProperties(value = {"user", "id"})
 @Entity
 @Table(name = "user_profiles")
 @Getter
