@@ -26,7 +26,7 @@ public class UserProfileController {
     }
 
     @PostMapping(path = "{userID}")
-    public void saveUserProfile(@RequestBody UserProfile userProfile, @PathVariable long userID) {
+    public void saveUserProfile(@PathVariable long userID, @RequestBody UserProfile userProfile) {
         Optional<User> userOptional = userService.getUser(userID);
         if (userOptional.isEmpty()) {
             throw new IllegalStateException("This profile does not exists");

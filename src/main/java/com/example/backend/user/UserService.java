@@ -44,13 +44,14 @@ public class UserService {
         if (updatedUser.getNick() == null || Objects.equals(updatedUser.getNick(), user.getNick())) {
             throw new IllegalStateException("this nick is already taken");
         }
+        user.setNick(updatedUser.getNick());
 
         if (updatedUser.getEmail() == null || updatedUser.getEmail().length() <= 0 || Objects.equals(updatedUser.getEmail(), user.getEmail())) {
             throw new IllegalStateException("this email is already taken");
         }
+        user.setEmail(updatedUser.getEmail());
 
-        updatedUser.setId(userID);
-        userRepository.save(updatedUser);
+        userRepository.save(user);
     }
 
     public void deleteUser(long id) {
@@ -59,6 +60,5 @@ public class UserService {
         }
         userRepository.deleteAllById(Collections.singleton(id));
     }
-
 
 }
