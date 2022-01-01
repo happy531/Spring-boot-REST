@@ -24,7 +24,7 @@ public class UserProfileService {
     }
 
     public void updateUserProfile(Long userID, UserProfile updatedUserProfile) {
-        updatedUserProfile.setId(userID);
+        updatedUserProfile.setUserId(userID);
         userProfileRepository.save(updatedUserProfile);
     }
 }

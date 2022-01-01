@@ -27,6 +27,11 @@ public class ThoughtController {
         return thoughtService.getThoughts();
     }
 
+    @GetMapping(path = "{thoughtId}")
+    public Optional<Thought> getThought(@PathVariable("thoughtId") Long thoughtId) {
+        return thoughtService.getThought(thoughtId);
+    }
+
     @PostMapping(path = "{userID}")
     public void saveThought(
             @PathVariable("userID") Long userID,
@@ -39,9 +44,14 @@ public class ThoughtController {
         User user = userOptional.get();
         Set<Thought> thoughts = user.getThoughts();
         thoughts.add(thought);
-        user.setThoughts(thoughts);
 
+        user.setThoughts(thoughts);
         thought.setUser(user);
         thoughtService.saveThought(thought);
+    }
+
+    @DeleteMapping(path = "{thoughtID}")
+    public void deleteThought(@PathVariable("thoughtID") Long thoughtID) {
+        thoughtService.deleteThought(thoughtID);
     }
 }
