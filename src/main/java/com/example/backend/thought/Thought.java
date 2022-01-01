@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@JsonIgnoreProperties(value = {"user"})
+//@JsonIgnoreProperties(value = {"user"})
 public class Thought {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,5 +28,6 @@ public class Thought {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties("thoughts")
     private User user;
 }

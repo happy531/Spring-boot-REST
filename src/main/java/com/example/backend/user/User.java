@@ -2,6 +2,7 @@ package com.example.backend.user;
 
 import com.example.backend.thought.Thought;
 import com.example.backend.user_profile.UserProfile;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,7 +22,7 @@ import java.util.Set;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @Column(name = "user_id")
     private Long id;
 
     @Column(
@@ -42,8 +43,9 @@ public class User {
     @PrimaryKeyJoinColumn
     private UserProfile userProfile;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "thought_fid", referencedColumnName = "id")
+    @OneToMany
+    @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties("user")
     private Set<Thought> thoughts = new HashSet<Thought>();
 
     public User(String name, String lastName) {
