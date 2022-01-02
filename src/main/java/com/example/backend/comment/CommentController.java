@@ -7,6 +7,8 @@ import com.example.backend.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -35,6 +37,13 @@ public class CommentController {
     public void addComment(@PathVariable("thoughtId") Long thoughtId,
                            @PathVariable("userId") Long userId,
                            @RequestBody Comment comment) {
+
+        LocalDate dateAdded = LocalDate.now();
+        comment.setDateAdded(dateAdded);
+
+        LocalTime timeAdded = LocalTime.now();
+        comment.setTimeAdded(timeAdded);
+
         Optional<Thought> thoughtOptional = thoughtService.getThought(thoughtId);
         if (thoughtOptional.isEmpty()) {
             throw new IllegalStateException("This thought does not exist");

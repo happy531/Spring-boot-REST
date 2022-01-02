@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,6 +30,12 @@ public class Thought {
             nullable = false,
             columnDefinition = "TEXT")
     private String thought;
+
+    @Column(name = "date_added")
+    private LocalDate dateAdded;
+
+    @Column(name = "time_added")
+    private LocalTime timeAdded;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "comments")
@@ -23,6 +25,12 @@ public class Comment {
 
     @Column(name = "comment")
     private String comment;
+
+    @Column(name = "date_added")
+    private LocalDate dateAdded;
+
+    @Column(name = "time_added")
+    private LocalTime timeAdded;
 
     @ManyToOne
     @JoinColumn(name = "thought_id")

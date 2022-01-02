@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -38,6 +40,12 @@ public class ThoughtController {
             @PathVariable("userID") Long userID,
             @RequestBody Thought thought
     ) {
+        LocalDate dateAdded = LocalDate.now();
+        thought.setDateAdded(dateAdded);
+
+        LocalTime timeAdded = LocalTime.now();
+        thought.setTimeAdded(timeAdded);
+
         Optional<User> userOptional = userService.getUser(userID);
         if (userOptional.isEmpty()) {
             throw new IllegalStateException("This profile does not exists");
