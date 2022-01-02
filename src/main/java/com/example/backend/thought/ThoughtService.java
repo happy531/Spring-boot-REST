@@ -1,9 +1,11 @@
 package com.example.backend.thought;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -15,8 +17,13 @@ public class ThoughtService {
         this.thoughtRepository = thoughtRepository;
     }
 
-    public List<Thought> getThoughts() {
-        return thoughtRepository.findAll();
+    public Page<Thought> getThoughts(Optional<Integer> page) {
+        return thoughtRepository.findAll(
+                PageRequest.of(
+                        page.orElse(0),
+                        5,
+                        Sort.Direction.ASC,
+                        "thoughtId"));
     }
 
     public Optional<Thought> getThought(Long thoughtId) {

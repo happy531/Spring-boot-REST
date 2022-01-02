@@ -3,9 +3,9 @@ package com.example.backend.thought;
 import com.example.backend.user.User;
 import com.example.backend.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -24,8 +24,8 @@ public class ThoughtController {
     }
 
     @GetMapping
-    public List<Thought> getThoughts() {
-        return thoughtService.getThoughts();
+    public Page<Thought> getThoughts(@RequestParam Optional<Integer> page) {
+        return thoughtService.getThoughts(page);
     }
 
     @GetMapping(path = "{thoughtId}")
