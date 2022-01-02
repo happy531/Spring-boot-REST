@@ -16,6 +16,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+@JsonIgnoreProperties(value = {"comments"})
 public class Thought {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,8 +34,7 @@ public class Thought {
     @JsonIgnoreProperties("thoughts")
     private User user;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
 //    @JoinColumn(name = "thought_id")
-//    @JsonIgnoreProperties("thoughts")
     private Set<Comment> comments = new HashSet<>();
 }

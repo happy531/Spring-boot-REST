@@ -27,12 +27,14 @@ public class CommentController {
     }
 
     @GetMapping
-    public List<Thought> getComments(@PathVariable("thoughtId") Long thoughtId) {
+    public List<Comment> getComments(@PathVariable("thoughtId") Long thoughtId) {
         return commentService.getComments(thoughtId);
     }
 
-    @PostMapping
-    public void addComment(@PathVariable("thoughtId") Long thoughtId, @RequestBody Comment comment) {
+    @PostMapping(path = "{userId}")
+    public void addComment(@PathVariable("thoughtId") Long thoughtId,
+                           @PathVariable("userId") Long userId,
+                           @RequestBody Comment comment) {
         Optional<Thought> thoughtOptional = thoughtService.getThought(thoughtId);
         if (thoughtOptional.isEmpty()) {
             throw new IllegalStateException("This thought does not exist");
@@ -43,7 +45,7 @@ public class CommentController {
         thought.setComments(comments);
         comment.setThought(thought);
 
-        Optional<User> userOptional = userService.getUser(thought.getUser().getUserId());
+        Optional<User> userOptional = userService.getUser(userId);
         if (userOptional.isEmpty()) {
             throw new IllegalStateException("This user does not exist");
         }
@@ -52,4 +54,15 @@ public class CommentController {
 
         commentService.addComment(comment);
     }
+
+    @DeleteMapping(path = "{commentId}")
+    public void deleteComment(@PathVariable("commentId") Long commentId,
+                              @PathVariable Long thoughtId) {
+        Thought thought = thoughtService.getThought(thoughtId).orElseThrow(() -> new IllegalStateException("thought does not exist"));
+        Set<Comment> comments = thought.getComments();
+        comments.removeIf(obj -> obj.getCommentId() == commentId);
+        thought.setComments(comments);
+        commentService.deleteComment(commentId);
+    }
+
 }

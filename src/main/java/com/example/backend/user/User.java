@@ -46,14 +46,12 @@ public class User {
 //    @PrimaryKeyJoinColumn
     private UserProfile userProfile;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
 //    @JoinColumn(name = "user_id")
-//    @JsonIgnoreProperties("user")
     private Set<Thought> thoughts = new HashSet<>();
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
 //    @JoinColumn(name = "user_id")
-//    @JsonIgnoreProperties("user")
     private Set<Comment> comments = new HashSet<>();
 
     public User(String name, String lastName) {

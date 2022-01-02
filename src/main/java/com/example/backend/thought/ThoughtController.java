@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
@@ -52,6 +53,13 @@ public class ThoughtController {
 
     @DeleteMapping(path = "{thoughtID}")
     public void deleteThought(@PathVariable("thoughtID") Long thoughtID) {
+        Thought thought = thoughtService.getThought(thoughtID).orElseThrow(() -> new IllegalStateException("this thought does not exist"));
+
+        User user = thought.getUser();
+        Set<Thought> userThoughts = user.getThoughts();
+        userThoughts.removeIf(obj -> Objects.equals(obj.getThoughtId(), thoughtID));
+        user.setThoughts(userThoughts);
+
         thoughtService.deleteThought(thoughtID);
     }
 }
