@@ -47,16 +47,17 @@ public class ThoughtController {
         thought.setTimeAdded(timeAdded);
 
         Optional<User> userOptional = userService.getUser(userID);
-        if (userOptional.isEmpty()) {
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            Set<Thought> thoughts = user.getThoughts();
+            thoughts.add(thought);
+
+            user.setThoughts(thoughts);
+            thought.setUser(user);
+            thoughtService.saveThought(thought);
+        } else {
             throw new IllegalStateException("This profile does not exists");
         }
-        User user = userOptional.get();
-        Set<Thought> thoughts = user.getThoughts();
-        thoughts.add(thought);
-
-        user.setThoughts(thoughts);
-        thought.setUser(user);
-        thoughtService.saveThought(thought);
     }
 
     @DeleteMapping(path = "{thoughtID}")

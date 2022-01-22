@@ -21,7 +21,7 @@ public class UserConfig {
                     "jacob@gmail.com"
             );
 
-            userRepository.saveAll(List.of(andrew, jacob));
+//            userRepository.saveAll(List.of(andrew, jacob));
         };
     }
 }

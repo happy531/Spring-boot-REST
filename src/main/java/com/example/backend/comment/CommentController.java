@@ -45,23 +45,25 @@ public class CommentController {
         comment.setTimeAdded(timeAdded);
 
         Optional<Thought> thoughtOptional = thoughtService.getThought(thoughtId);
-        if (thoughtOptional.isEmpty()) {
+        if (thoughtOptional.isPresent()) {
+            Thought thought = thoughtOptional.get();
+            Set<Comment> comments = thought.getComments();
+            comments.add(comment);
+            thought.setComments(comments);
+            comment.setThought(thought);
+
+            Optional<User> userOptional = userService.getUser(userId);
+            if (userOptional.isPresent()) {
+                User user = userOptional.get();
+                comment.setUser(user);
+
+                commentService.addComment(comment);
+            } else {
+                throw new IllegalStateException("This user does not exist");
+            }
+        } else {
             throw new IllegalStateException("This thought does not exist");
         }
-        Thought thought = thoughtOptional.get();
-        Set<Comment> comments = thought.getComments();
-        comments.add(comment);
-        thought.setComments(comments);
-        comment.setThought(thought);
-
-        Optional<User> userOptional = userService.getUser(userId);
-        if (userOptional.isEmpty()) {
-            throw new IllegalStateException("This user does not exist");
-        }
-        User user = userOptional.get();
-        comment.setUser(user);
-
-        commentService.addComment(comment);
     }
 
     @DeleteMapping(path = "{commentId}")
