@@ -9,13 +9,13 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>thoughts-backend</artifactId>
+    <artifactId>spring-boot-backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>pom</packaging>
-    <name>thoughts-backend</name>
-    <description>thoughts-backend</description>
+    <packaging>jar</packaging>
+    <name>spring-boot-backend</name>
+    <description>spring-boot-backend</description>
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>11</java.version>
     </properties>
     <dependencies>
         <dependency>
@@ -47,7 +47,6 @@
             <artifactId>annotations</artifactId>
             <version>23.0.0</version>
         </dependency>
-
     </dependencies>
 
     <build>
