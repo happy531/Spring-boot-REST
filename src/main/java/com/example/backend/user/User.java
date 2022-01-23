@@ -55,7 +55,7 @@ public class User {
     private Set<Comment> comments = new HashSet<>();
         
     public User(Long userId, String name, String lastName) {
-        this.userId = userId
+        this.userId = userId;
         this.nick = name;
         this.email = lastName;
     }
