@@ -53,6 +53,12 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL)
 //    @JoinColumn(name = "user_id")
     private Set<Comment> comments = new HashSet<>();
+        
+    public User(Long userId, String name, String lastName) {
+        this.userId = userId
+        this.nick = name;
+        this.email = lastName;
+    }
 
     public User(String name, String lastName) {
         this.nick = name;
