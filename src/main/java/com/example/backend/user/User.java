@@ -59,9 +59,4 @@ public class User {
         this.nick = name;
         this.email = lastName;
     }
-
-    public User(String name, String lastName) {
-        this.nick = name;
-        this.email = lastName;
-    }
 }
