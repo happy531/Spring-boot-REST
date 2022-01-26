@@ -26,8 +26,8 @@ public class UserProfileController {
     }
 
     @PostMapping(path = "{userID}")
-    public void saveUserProfile(@PathVariable long userID, @RequestBody UserProfile userProfile) {
-        Optional<User> userOptional = userService.getUser(userID);
+    public void saveUserProfile(@PathVariable String userID, @RequestBody UserProfile userProfile) {
+        Optional<User> userOptional = userService.getUser(Long.parseLong(userID));
         if (userOptional.isPresent()) {
             User user = userOptional.get();
             user.setUserProfile(null);
@@ -40,7 +40,7 @@ public class UserProfileController {
 
     @PutMapping(path = "{userID}")
     public void updateUserProfile(
-            @PathVariable("userID") Long userID,
+            @PathVariable("userID") String userID,
             @RequestBody UserProfile updatedUserProfile
     ) {
         userProfileService.updateUserProfile(userID, updatedUserProfile);

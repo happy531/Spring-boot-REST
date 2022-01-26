@@ -38,8 +38,8 @@ public class UserService {
     }
 
     @Transactional
-    public void updateUser(Long userID, User updatedUser) {
-        User user = userRepository.findById(userID).orElseThrow(() -> new IllegalStateException(
+    public void updateUser(String userID, User updatedUser) {
+        User user = userRepository.findById(Long.valueOf(userID)).orElseThrow(() -> new IllegalStateException(
                 "user with id " + userID + "does not exists"));
         if (updatedUser.getNick() == null || Objects.equals(updatedUser.getNick(), user.getNick())) {
             throw new IllegalStateException("this nick is already taken");

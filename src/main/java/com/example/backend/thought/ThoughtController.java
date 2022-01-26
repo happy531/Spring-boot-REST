@@ -37,7 +37,7 @@ public class ThoughtController {
 
     @PostMapping(path = "{userID}")
     public void saveThought(
-            @PathVariable("userID") Long userID,
+            @PathVariable("userID") String userID,
             @RequestBody Thought thought
     ) {
         LocalDate dateAdded = LocalDate.now();
@@ -46,7 +46,7 @@ public class ThoughtController {
         LocalTime timeAdded = LocalTime.now();
         thought.setTimeAdded(timeAdded);
 
-        Optional<User> userOptional = userService.getUser(userID);
+        Optional<User> userOptional = userService.getUser(Long.parseLong(userID));
         if (userOptional.isPresent()) {
             User user = userOptional.get();
             Set<Thought> thoughts = user.getThoughts();

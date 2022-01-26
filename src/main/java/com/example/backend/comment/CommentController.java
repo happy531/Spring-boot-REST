@@ -35,7 +35,7 @@ public class CommentController {
 
     @PostMapping(path = "{userId}")
     public void addComment(@PathVariable("thoughtId") Long thoughtId,
-                           @PathVariable("userId") Long userId,
+                           @PathVariable("userId") String userId,
                            @RequestBody Comment comment) {
 
         LocalDate dateAdded = LocalDate.now();
@@ -52,7 +52,7 @@ public class CommentController {
             thought.setComments(comments);
             comment.setThought(thought);
 
-            Optional<User> userOptional = userService.getUser(userId);
+            Optional<User> userOptional = userService.getUser(Long.parseLong(userId));
             if (userOptional.isPresent()) {
                 User user = userOptional.get();
                 comment.setUser(user);

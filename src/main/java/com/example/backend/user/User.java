@@ -26,7 +26,7 @@ public class User {
     @Id
    // @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id")
-    private Long userId;
+    private String userId;
 
     @Column(
             name = "nick",
@@ -54,7 +54,7 @@ public class User {
 //    @JoinColumn(name = "user_id")
     private Set<Comment> comments = new HashSet<>();
         
-    public User(Long userId, String name, String lastName) {
+    public User(String userId, String name, String lastName) {
         this.userId = userId;
         this.nick = name;
         this.email = lastName;

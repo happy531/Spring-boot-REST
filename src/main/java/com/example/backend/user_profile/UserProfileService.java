@@ -23,7 +23,7 @@ public class UserProfileService {
         userProfileRepository.save(userProfile);
     }
 
-    public void updateUserProfile(Long userID, UserProfile updatedUserProfile) {
+    public void updateUserProfile(String userID, UserProfile updatedUserProfile) {
         updatedUserProfile.setUserId(userID);
         userProfileRepository.save(updatedUserProfile);
     }

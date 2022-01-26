@@ -17,7 +17,7 @@ import javax.persistence.*;
 public class UserProfile {
     @Id
     @Column(name = "user_id")
-    private Long userId;
+    private String userId;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "gender")
