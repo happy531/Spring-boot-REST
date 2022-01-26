@@ -21,13 +21,13 @@ public class UserProfileController {
     }
 
     @GetMapping(path = "{userID}")
-    public Optional<UserProfile> getProfile(@PathVariable("userID") long id) {
+    public Optional<UserProfile> getProfile(@PathVariable("userID") String id) {
         return userProfileService.getProfile(id);
     }
 
     @PostMapping(path = "{userID}")
     public void saveUserProfile(@PathVariable String userID, @RequestBody UserProfile userProfile) {
-        Optional<User> userOptional = userService.getUser(Long.parseLong(userID));
+        Optional<User> userOptional = userService.getUser(userID);
         if (userOptional.isPresent()) {
             User user = userOptional.get();
             user.setUserProfile(null);

@@ -46,7 +46,7 @@ public class ThoughtController {
         LocalTime timeAdded = LocalTime.now();
         thought.setTimeAdded(timeAdded);
 
-        Optional<User> userOptional = userService.getUser(Long.parseLong(userID));
+        Optional<User> userOptional = userService.getUser(userID);
         if (userOptional.isPresent()) {
             User user = userOptional.get();
             Set<Thought> thoughts = user.getThoughts();

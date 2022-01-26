@@ -24,7 +24,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public Optional<User> getUser(long id) {
+    public Optional<User> getUser(String id) {
         return userRepository.findById(id);
     }
 
@@ -39,7 +39,7 @@ public class UserService {
 
     @Transactional
     public void updateUser(String userID, User updatedUser) {
-        User user = userRepository.findById(Long.valueOf(userID)).orElseThrow(() -> new IllegalStateException(
+        User user = userRepository.findById(userID).orElseThrow(() -> new IllegalStateException(
                 "user with id " + userID + "does not exists"));
         if (updatedUser.getNick() == null || Objects.equals(updatedUser.getNick(), user.getNick())) {
             throw new IllegalStateException("this nick is already taken");
@@ -54,7 +54,7 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public void deleteUser(long id) {
+    public void deleteUser(String id) {
         if (!userRepository.existsById(id)) {
             throw new IllegalStateException("user " + id + " does not exists");
         }

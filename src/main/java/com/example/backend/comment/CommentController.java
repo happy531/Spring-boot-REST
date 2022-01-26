@@ -52,7 +52,7 @@ public class CommentController {
             thought.setComments(comments);
             comment.setThought(thought);
 
-            Optional<User> userOptional = userService.getUser(Long.parseLong(userId));
+            Optional<User> userOptional = userService.getUser(userId);
             if (userOptional.isPresent()) {
                 User user = userOptional.get();
                 comment.setUser(user);
