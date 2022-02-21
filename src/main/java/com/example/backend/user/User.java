@@ -4,11 +4,10 @@ import com.example.backend.comment.Comment;
 import com.example.backend.thought.Thought;
 import com.example.backend.user_profile.UserProfile;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,20 +19,20 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @JsonIgnoreProperties(value = {"userProfile", "thoughts", "comments"})
-
 public class User {
     @Id
-   // @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long userId;
 
     @Column(
-            name = "nick",
+            name = "username",
             nullable = false,
             columnDefinition = "TEXT"
     )
-    private String nick;
+    private String username;
 
     @Column(
             name = "email",
@@ -42,21 +41,26 @@ public class User {
     )
     private String email;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-//    @PrimaryKeyJoinColumn
-    private UserProfile userProfile;
+    @Column(
+            name = "password",
+            nullable = false,
+            columnDefinition = "TEXT"
+    )
+    private String password;
 
-    @OneToMany(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "user_id")
-    private Set<Thought> thoughts = new HashSet<>();
+    private Instant created;
+    private boolean enabled;
 
-    @OneToMany(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "user_id")
-    private Set<Comment> comments = new HashSet<>();
-        
-    public User(Long userId, String name, String lastName) {
-        this.userId = userId;
-        this.nick = name;
-        this.email = lastName;
-    }
+//    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+////    @PrimaryKeyJoinColumn
+//    private UserProfile userProfile;
+//
+//    @OneToMany(cascade = CascadeType.ALL)
+////    @JoinColumn(name = "user_id")
+//    private Set<Thought> thoughts = new HashSet<>();
+//
+//    @OneToMany(cascade = CascadeType.ALL)
+////    @JoinColumn(name = "user_id")
+//    private Set<Comment> comments = new HashSet<>();
+
 }
